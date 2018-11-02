@@ -28,8 +28,7 @@ def compare_times(t1, t2):
     
     t1 = t1[0].split(":")
     t2 = t2[0].split(":")
-    print(t1, t2)
-    print(int(t1[0]), int(t1[1]), int(t1[2]), int(t2[0]), int(t2[1]), int(t2[2]))
+    
     if int(t1[0]) > int(t2[0]):  # hours
         return True
     elif int(t1[0]) < int(t2[0]):
