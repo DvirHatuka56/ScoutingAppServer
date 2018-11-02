@@ -23,7 +23,7 @@ def main():
         return
 
     listen_sock.listen(1)
-    for i in range(0, 10):
+    for i in range(0, 20):
         try:
             client_sock, client_address = listen_sock.accept()
             client_msg = client_sock.recv(1024).decode()

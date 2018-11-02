@@ -1,3 +1,3 @@
-.\Files\
-.\Scripts\__pycache__\
-.\.idea\
+/Files
+/Scripts/__pycache__
+/.idea
