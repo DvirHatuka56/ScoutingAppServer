@@ -67,9 +67,8 @@ def fresh_pit(client_socket, pits, msg):
             send = compare_times(pit[1], last_update)
         if send:
             if pit[0] is not None:
-                client_socket.sendall((json.dumps(Scripts.Responses.fresh_pit(pit[0]))).encode())
-                client_socket.recv(1024)
-    client_socket.sendall((json.dumps(Scripts.Responses.end())).encode())
+                client_socket.sendall((json.dumps(Scripts.Responses.fresh_pit(pit[0])) + "|||").encode())
+    client_socket.sendall((json.dumps(Scripts.Responses.end()) + "|||").encode())
     client_socket.recv(1024)
     client_socket.close()
     Scripts.LogWriter.pit_fresh(msg["Username"], msg["Time"])
