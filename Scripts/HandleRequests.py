@@ -52,7 +52,8 @@ def fresh_game(client_socket, games, msg):
             send = compare_times(game[1], last_update)
         if send:
             if game[0] is not None:
-                client_socket.sendall((game[0]["TeamNumber"] + " " + game[0]["GameNumber"] + "#").encode())
+                data = json.loads(game[0])
+                client_socket.sendall((str(data["TeamNumber"]) + " " + str(data["GameNumber"]) + "#").encode())
     client_socket.sendall("end|||".encode())
     client_socket.close()
     Scripts.LogWriter.game_fresh(msg["Username"], msg["Time"])
