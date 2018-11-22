@@ -21,9 +21,9 @@ def wrong_password(client_socket, msg):
 def compare_times(t1, t2):
     t1 = t1.split(" ")
     t2 = t2.split(" ")
-    if t1[1] == "PM" and t2[1] == "AM":  # part in day
+    if t1[1] > t2[1]:  # day
         return True
-    elif t1[1] == "AM" and t2[1] == "PM":
+    elif t1[1] < t2[1]:
         return False
     
     t1 = t1[0].split(":")
@@ -52,9 +52,8 @@ def fresh_game(client_socket, games, msg):
             send = compare_times(game[1], last_update)
         if send:
             if game[0] is not None:
-                client_socket.sendall(((json.dumps(Scripts.Responses.fresh_game(game[0]))) + "|||").encode())
-    client_socket.sendall(((json.dumps(Scripts.Responses.end())) + "|||").encode())
-    client_socket.recv(1024)
+                client_socket.sendall((game[0]["TeamNumber"] + " " + game[0]["GameNumber"] + "#").encode())
+    client_socket.sendall("end|||".encode())
     client_socket.close()
     Scripts.LogWriter.game_fresh(msg["Username"], msg["Time"])
 
@@ -67,9 +66,8 @@ def fresh_pit(client_socket, pits, msg):
             send = compare_times(pit[1], last_update)
         if send:
             if pit[0] is not None:
-                client_socket.sendall((json.dumps(Scripts.Responses.fresh_pit(pit[0])) + "|||").encode())
+                client_socket.sendall((json.dumps(Scripts.Responses.fresh_pit(pit[0])) + "#").encode())
     client_socket.sendall((json.dumps(Scripts.Responses.end()) + "|||").encode())
-    client_socket.recv(1024)
     client_socket.close()
     Scripts.LogWriter.pit_fresh(msg["Username"], msg["Time"])
 
