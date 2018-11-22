@@ -44,6 +44,17 @@ def compare_times(t1, t2):
     return False  # equal
 
 
+def send_game(client_socket, games, team_number, game_number):
+    for game in games:
+        data = json.loads(game)
+        if data["TeamNumber"] == team_number and data["GameNumber"] == game_number:
+            client_socket.sendall((json.dumps(Scripts.Responses.fresh_game(data)) + "#").encode())
+            client_socket.close()
+            return
+    client_socket.sendall((json.dumps(Scripts.Responses.invalid_request()) + "#").encode())
+    client_socket.close()
+
+
 def fresh_game(client_socket, games, msg):
     last_update = msg["Content"]
     send = last_update == ""
