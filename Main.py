@@ -67,10 +67,12 @@ def HandleRequest(msg, client_socket):
     elif request == "UploadGame":
         GAMES.append(Scripts.HandleRequests.add_game(client_socket, msg))
         print(GAMES)
-    elif request == "LoadGame":
+    elif request == "LoadGames":
         Scripts.HandleRequests.fresh_game(client_socket, GAMES, msg)
-    elif request == "LoadPit":
+    elif request == "LoadPits":
         Scripts.HandleRequests.fresh_pit(client_socket, PITS, msg)
+    elif request == "LoadGame":
+        Scripts.HandleRequests.send_game(client_socket, GAMES, msg)
     else:
         Scripts.HandleRequests.invalid_request(client_socket, msg)
 
